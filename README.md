@@ -1,6 +1,6 @@
 # OmniAuth ORCID
 
-ORCID OAuth 2.0 Strategy for the wonderful (OmniAuth Ruby authentication framework)[http://www.omniauth.org].
+ORCID OAuth 2.0 Strategy for the wonderful [OmniAuth Ruby authentication framework](http://www.omniauth.org).
 
 Originally created for the [ORCID example client application in Rails](https://github.com/gthorisson/ORCID-example-client-app-rails), then turned into a gem.
 
