@@ -4,8 +4,10 @@ ORCID OAuth 2.0 Strategy for OmniAuth 1.0.
 
 Originally created for the [ORCID example client application in Rails](https://github.com/gthorisson/ORCID-example-client-app-rails), then turned into a gem.
 
+*Note: the gem comes configured to connected to the [ORCID sandbox service](http://devsandbox.orcid.org). Please update the parameters in ```:client_options``` to  connect to the live service when it launches (see http://dev.orcid.org/launch)*
 
-...stuff coming, patience plz....
+
+*...stuff coming, patience plz....*
 
 
 ## More information 
