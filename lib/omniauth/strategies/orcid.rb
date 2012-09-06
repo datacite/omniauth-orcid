@@ -6,7 +6,7 @@ module OmniAuth
   module Strategies
     class ORCID < OmniAuth::Strategies::OAuth2
 
-      DEFAULT_SCOPE = '/orcid-bio/read-protected'      
+      DEFAULT_SCOPE = '/orcid-bio/read-limited'      
 
       option :client_options, {
         :site => 'http://api.devsandbox.orcid.org',
