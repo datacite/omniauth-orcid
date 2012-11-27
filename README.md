@@ -32,28 +32,27 @@ use OmniAuth::Builder do
 end
 ```
 
-
-Here's how to get going with a couple of popular Rack-base framework
+You also have to implement a callback handler to grab user data after the OAuth handshake has been completed, and then do something cool with those data. Here's how to get going with a couple of popular Rack-based frameworks:
 
 
 ### Sinatra
 
 
-Configure the strategy and implement a callback handler in your app:
+Configure the strategy and implement a callback routine in your app:
 
 ```ruby
 require 'sinatra'
+require 'sinatra/config_file'
 require 'omniauth-orcid'
 enable :sessions
 
 use OmniAuth::Builder do
   provider :orcid, ENV['ORCID_KEY'], ENV['ORCID_SECRET']
 end
-
 ...
-
-get '/auth/:name/callback' do
-  session[:omniauth] = request.env['omniauth.auth']  
+get '/auth/orcid/callback' do
+  session[:omniauth] = request.env['omniauth.auth']
+  redirect '/'
 end
 
 get '/' do
@@ -62,7 +61,6 @@ get '/' do
     @orcid = session[:omniauth][:uid]
   end
   ..
-
 ```
 
 The bundled `demo.rb` file contains an uber-simple working Sinatra example app. Spin it up, point your browser to http://localhost:4567/ and play:
@@ -81,7 +79,7 @@ ruby demo.rb
 ### Rails 
 
 
-Add this to `config/initializers/omniauth.rb`:
+Add this to `config/initializers/omniauth.rb` to configure the strategy:
 
 ```ruby
 require 'omniauth-orcid'
@@ -91,15 +89,15 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 end
 ```
 
-Register callback path in 'config/routes.rb'
+Register a callback path in 'config/routes.rb'
 
 ```ruby
 ..
   match '/auth/:provider/callback' => 'authentications#create'
 ..
-``
+```
 
-Implement a callback handler method in a controller, something like this:
+Implement a callback handler method in a controller:
 
 ```ruby
 class AuthenticationsController < ApplicationController
@@ -116,7 +114,7 @@ class AuthenticationsController < ApplicationController
 
 ## Configuration
 
-You can also grab parameters from a config file (recommended) and pass in via the `:client_options` hash. Here's an example from the bundled `demo.rb` Sinatra app:
+You can also grab parameters from a config file (recommended) and pass to the strategy via the `:client_options` hash. Here's an example from the bundled Sinatra app in `demo.rb`:
 
 ```ruby
 config_file 'config.yml'
@@ -133,7 +131,7 @@ end
 
 Different sets of params from `config.yml` are used for production environment (points to live ORCID service) vs. development environment (points to ORCID sandbox service).
 
-You can something similar with in Rails, see a working example here: https://github.com/gthorisson/ORCID-example-client-app-rails
+You can d something similar with in Rails with the same config file, or something . See a working example here: https://github.com/gthorisson/ORCID-example-client-app-rails
 
 
 
