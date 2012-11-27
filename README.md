@@ -10,14 +10,25 @@ Originally created for the [ORCID example client application in Rails](https://g
 
 ## Installation
 
-The usual way: add the following to your `Gemfile`:
+The usual way with Bundler: add the following to your `Gemfile` to install the current version of the gem:
 
 ```ruby
 gem 'omniauth-orcid'
 ```
 
-Then run `bundle install`.
+Or, if you're impatient, you can install straight from GitHub
 
+```ruby
+gem 'omniauth-orcid' , :git => 'git://github.com/gthorisson/omniauth-orcid.git'
+```
+
+Then run `bundle install` to install into your environment.
+
+You can also install the gem system-wide:
+
+```bash
+[mummi@nfmac07]gem install omniauth-orcid
+```
 
 ## Getting started
 
