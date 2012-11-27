@@ -6,13 +6,13 @@ module OmniAuth
   module Strategies
     class ORCID < OmniAuth::Strategies::OAuth2
 
-      DEFAULT_SCOPE = '/orcid-bio/read-limited'      
+      DEFAULT_SCOPE = '/orcid-bio/read-limited'
 
       option :client_options, {
-        :site => 'http://api.devsandbox.orcid.org',
-        :authorize_url => 'http://devsandbox.orcid.org/oauth/authorize',
+        :site => 'http://api.orcid.org',
+        :authorize_url => 'http://orcid.org/oauth/authorize',
         :token_url => 'http://api.devsandbox.orcid.org/oauth/token',
-        :scope => '/orcid-profile/read-limited',
+        :scope => 'http://api.orcid.org/oauth/token',
         :response_type => 'code',
         :mode => :header
       }
@@ -30,7 +30,6 @@ module OmniAuth
         super.tap do |params|
           %w[scope].each { |v| params[v.to_sym] = request.params[v] if request.params[v] }
           params[:scope] ||= DEFAULT_SCOPE # ensure that we're always request *some* default scope
-          Rails.logger.debug "Customizing authz params:  " + params.inspect
         end
       end
     end

@@ -2,12 +2,139 @@
 
 ORCID OAuth 2.0 Strategy for the wonderful [OmniAuth Ruby authentication framework](http://www.omniauth.org).
 
+Provides basic support for connecting a client application to the [Open Researcher & Contributor ID registry service](http://about.orcid.org).
+
 Originally created for the [ORCID example client application in Rails](https://github.com/gthorisson/ORCID-example-client-app-rails), then turned into a gem.
 
-*Note: the gem comes configured to connected to the [ORCID sandbox service](http://devsandbox.orcid.org). Please update the parameters in ```:client_options``` to  connect to the live service when it launches (see http://dev.orcid.org/launch)*
 
 
-*...stuff coming, patience plz....*
+## Installation
+
+The usual way: add the following to your `Gemfile`:
+
+```ruby
+gem 'omniauth-orcid'
+```
+
+Then run `bundle install`.
+
+
+## Getting started
+
+Like other OmniAuth strategies, `OmniAuth::Strategies::ORCID` is a piece of Rack middleware. Please read the OmniAuth documentation for detailed instructions: https://github.com/intridea/omniauth.
+
+
+By default the module connects to the live ORCID service. In the very simplest usage, all you have to provide are your client app credentials ([see more here](http://support.orcid.org/knowledgebase/articles/116739)):
+
+```ruby
+use OmniAuth::Builder do
+  provider :orcid, ENV['ORCID_KEY'], ENV['ORCID_SECRET']
+end
+```
+
+
+Here's how to get going with a couple of popular Rack-base framework
+
+
+### Sinatra
+
+
+Configure the strategy and implement a callback handler in your app:
+
+```ruby
+require 'sinatra'
+require 'omniauth-orcid'
+enable :sessions
+
+use OmniAuth::Builder do
+  provider :orcid, ENV['ORCID_KEY'], ENV['ORCID_SECRET']
+end
+
+...
+
+get '/auth/:name/callback' do
+  session[:omniauth] = request.env['omniauth.auth']  
+end
+
+get '/' do
+  
+  if session[:omniauth]
+    @orcid = session[:omniauth][:uid]
+  end
+  ..
+
+```
+
+The bundled `demo.rb` file contains an uber-simple working Sinatra example app. Spin it up, point your browser to http://localhost:4567/ and play:
+
+```bash
+gem install sinatra
+ruby demo.rb
+[2012-11-26 21:41:08] INFO  WEBrick 1.3.1
+[2012-11-26 21:41:08] INFO  ruby 1.9.3 (2012-04-20) [x86_64-darwin11.3.0]
+== Sinatra/1.3.2 has taken the stage on 4567 for development with backup from WEBrick
+[2012-11-26 21:41:08] INFO  WEBrick::HTTPServer#start: pid=8383 port=4567
+
+```
+
+
+### Rails 
+
+
+Add this to `config/initializers/omniauth.rb`:
+
+```ruby
+require 'omniauth-orcid'
+
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :orcid, ENV['ORCID_KEY'], ENV['ORCID_SECRET']
+end
+```
+
+Register callback path in 'config/routes.rb'
+
+```ruby
+..
+  match '/auth/:provider/callback' => 'authentications#create'
+..
+``
+
+Implement a callback handler method in a controller, something like this:
+
+```ruby
+class AuthenticationsController < ApplicationController
+  ..
+  def create
+    omniauth = request.env["omniauth.auth"]
+    session[:omniauth] = omniauth
+    session[:params]   = params
+    ..
+  end
+```
+
+
+
+## Configuration
+
+You can also grab parameters from a config file (recommended) and pass in via the `:client_options` hash. Here's an example from the bundled `demo.rb` Sinatra app:
+
+```ruby
+config_file 'config.yml'
+use OmniAuth::Builder do
+  provider :orcid, settings.client_id, settings.client_secret, 
+  :client_options => {
+    :site => settings.site, 
+    :authorize_url => settings.authorize_url,
+    :token_url => settings.token_url
+  }
+end
+
+```
+
+Different sets of params from `config.yml` are used for production environment (points to live ORCID service) vs. development environment (points to ORCID sandbox service).
+
+You can something similar with in Rails, see a working example here: https://github.com/gthorisson/ORCID-example-client-app-rails
+
 
 
 ## More information 

@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.homepage      = %q{https://github.com/gthorisson/omniauth-orcid}
   s.summary       = %q{ORCID OAuth 2.0 Strategy for OmniAuth 1.0}
   s.date = Date.today
-  s.description   = %q{Enables third-party client apps to connect to the ORCID API and access/update protected profiledata }
+  s.description   = %q{Enables third-party client apps to connect to the ORCID API and access/update protected profile data }
   s.files         = Dir["{lib}/**/*.rb", "bin/*", "LICENSE", "*.md", "Rakefile"]
   s.require_paths = ["lib"]
   s.version       = OmniAuth::ORCID::VERSION
