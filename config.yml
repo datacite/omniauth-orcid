@@ -3,9 +3,9 @@
 
 
 production:
-  site: http://api.orcid.org
-  authorize_url: http://orcid.org/oauth/authorize
-  token_url: http://api.orcid.org/oauth/token
+  site: https://api.orcid.org
+  authorize_url: https://orcid.org/oauth/authorize
+  token_url: https://api.orcid.org/oauth/token
   client_id: 
   client_secret: 
 
