@@ -5,7 +5,7 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/config_file'
 require 'haml'
-require './lib/omniauth/strategies/orcid'
+require 'omniauth-orcid'
 require 'json'
 
 enable :sessions
