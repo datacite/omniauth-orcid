@@ -169,7 +169,7 @@ end
 
 Different sets of params from `config.yml` are used for production environment (points to live ORCID service) vs. development environment (points to ORCID sandbox service).
 
-You can d something similar with in Rails with the same config file, or something . See a working example here: https://github.com/gthorisson/ORCID-example-client-app-rails
+You can do something similar with in Rails with the same config file, or something . See a working example here: https://github.com/gthorisson/ORCID-example-client-app-rails
 
 
 
