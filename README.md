@@ -43,7 +43,34 @@ use OmniAuth::Builder do
 end
 ```
 
-You also have to implement a callback handler to grab user data after the OAuth handshake has been completed, and then do something cool with those data. Here's how to get going with a couple of popular Rack-based frameworks:
+OmniAuth takes care of the OAuth external-authentication handshake or "dance". All that the gem does is grab the identifier and tokens at the end of the dance and stick it into the OmniAuth hash which is subsequently accessible to your app via `request.env['omniauth.auth']` (see [AuthHashSchema](https://github.com/intridea/omniauth/wiki/Auth-Hash-Schema)). The hash looks something like this:
+
+```json
+{
+  provider: "orcid",
+  uid: "0000-0003-2012-0010",
+  info: {
+  name: null
+},
+credentials: {
+  token: "e82938fa-a287-42cf-a2ce-f48ef68c9a35",
+  refresh_token: "f94c58dd-b452-44f4-8863-0bf8486a0071",
+  expires_at: 1979903874,
+  expires: true
+},
+extra: { }
+}
+```
+
+You have to implement a callback handler to grab at least the `uid` from the hash and (typically) save it in a session. This effectively provides basic "Log in with your ORCiD" functionality.
+
+Most likely, with the token in hand, you'll want to do something more sophisticated with the API, like retrieving profile data and do something cool with it. See the API guide for more details:
+
+http://support.orcid.org/knowledgebase/articles/116874-orcid-api-guide
+
+
+
+Here's how to get going with a couple of popular Rack-based frameworks:
 
 
 ### Sinatra
