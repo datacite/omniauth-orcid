@@ -1,4 +1,5 @@
 # ORCID example client application in Sinatra.
+#
 # Modelled after this app: https://github.com/zuzara/jQuery-OAuth-Popup
 
 require 'rubygems'
@@ -6,6 +7,7 @@ require 'sinatra'
 require 'sinatra/config_file'
 require 'haml'
 require 'omniauth-orcid'
+require 'oauth2'
 require 'json'
 
 enable :sessions
@@ -31,6 +33,8 @@ use OmniAuth::Builder do
 end
 
 
+
+
 get '/' do
 
   @orcid = ''
@@ -46,10 +50,11 @@ get '/' do
     - if session[:omniauth]
       %p
         Signed in with ORCiD <b>#{@orcid}</b>
+        %a(href="/signout") sign out
       %p
-        %a(href="/user_info")fetch user info as JSON
+        %a(href="/user_info")Show OmniAuth user data as JSON
       %p
-        %a(href="/signout") sign out 
+        %a(href="/orcid_profile")Connect to ORCID API to fetch full profile data as JSON
     - else
       %p
         %a(href="/auth/orcid") Log in with my ORCiD
@@ -69,10 +74,17 @@ get '/auth/orcid/callback' do
   redirect '/'
 end
 
+get '/orcid_profile' do
+  client = OAuth2::Client.new settings.client_id,settings.client_secret, :site  => settings.site
+  atoken = OAuth2::AccessToken.new client, session[:omniauth]['credentials']['token']
+  response = atoken.get "/#{session[:omniauth]['uid']}/orcid-profile", :headers => {'Accept' => 'application/json'}
+  response.body
+end
+
+
 get '/signout' do
   session.clear
   redirect '/'
 end
 
 
-__END__
