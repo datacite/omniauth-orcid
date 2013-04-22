@@ -1,3 +1,4 @@
+require "date"
 require File.expand_path("../lib/omniauth-orcid/version", __FILE__)
 
 Gem::Specification.new do |s|
