@@ -2,7 +2,7 @@
 
 ORCID OAuth 2.0 Strategy for the wonderful [OmniAuth Ruby authentication framework](http://www.omniauth.org).
 
-Provides basic support for connecting a client application to the [Open Researcher & Contributor ID registry service](http://about.orcid.org).
+Provides basic support for connecting a client application to the [Open Researcher & Contributor ID registry service](http://orcid.org).
 
 Originally created for the [ORCID example client application in Rails](https://github.com/gthorisson/ORCID-example-client-app-rails), then turned into a gem.
 
@@ -24,7 +24,7 @@ gem 'omniauth-orcid' , :git => 'git://github.com/gthorisson/omniauth-orcid.git'
 
 Then run `bundle install` to install into your environment.
 
-You can also install the gem system-wide:
+You can also install the gem system-wide in the usual way:
 
 ```bash
 [mummi@nfmac07]gem install omniauth-orcid
@@ -149,15 +149,21 @@ class AuthenticationsController < ApplicationController
 ```
 
 
-
 ## Configuration
 
-You can also grab parameters from a config file (recommended) and pass to the strategy via the `:client_options` hash. Here's an example from the bundled Sinatra app in `demo.rb`:
+You can also grab parameters from a config file (recommended) and pass
+to the strategy, along with other options specific to your app. The OAuth scope or
+scopes in particular frequently need to be customized. Here's an example from the bundled Sinatra app in `demo.rb`:
+
+*UPDATE The [omniauth-oauth2 gem](https://github.com/intridea/omniauth-oauth2)  was recently been updated to process options slightly differently. The `:scope` string must now be passed in via  `:authorize_params`, see below*
 
 ```ruby
 config_file 'config.yml'
 use OmniAuth::Builder do
   provider :orcid, settings.client_id, settings.client_secret, 
+    :authorize_params => {
+      :scope => '/orcid-profile/read-limited'
+    },
   :client_options => {
     :site => settings.site, 
     :authorize_url => settings.authorize_url,
@@ -175,8 +181,9 @@ You can do something similar with in Rails with the same config file, or somethi
 
 ## More information 
 
-ORCID Developer Portal - http://dev.orcid.org
-
+ORCID Open Source Project - https://github.com/ORCID/ORCID-Source
+Developer Wiki - https://github.com/ORCID/ORCID-Source/wiki
+Technical community - http://orcid.org/about/community/orcid-technical-community
 
 
 
