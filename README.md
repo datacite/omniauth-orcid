@@ -181,9 +181,9 @@ You can do something similar with in Rails with the same config file, or somethi
 
 ## More information 
 
-ORCID Open Source Project - https://github.com/ORCID/ORCID-Source
-Developer Wiki - https://github.com/ORCID/ORCID-Source/wiki
-Technical community - http://orcid.org/about/community/orcid-technical-community
+* ORCID Open Source Project - https://github.com/ORCID/ORCID-Source
+* Developer Wiki - https://github.com/ORCID/ORCID-Source/wiki
+* Technical community - http://orcid.org/about/community/orcid-technical-community
 
 
 
