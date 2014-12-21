@@ -17,11 +17,13 @@ module OmniAuth
         :mode => :header
       }
 
-
       # Pull out unique ID for the user in the external system
       uid { access_token.params["orcid"] }
 
-      info { { name: access_token.params["name"] } }
+      info do
+        { name: access_token.params["name"],
+          email: access_token.params["email"] }
+      end
 
       # Customize the parameters passed to the OAuth provider in the authorization phase
       def authorize_params
