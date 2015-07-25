@@ -2,10 +2,10 @@ require "date"
 require File.expand_path("../lib/omniauth-orcid/version", __FILE__)
 
 Gem::Specification.new do |s|
-  s.authors       = ["Gudmundur A. Thorisson"]
+  s.authors       = ["Gudmundur A. Thorisson", "Martin Fenner"]
   s.email         = %q{gthorisson@gmail.com}
   s.name          = "omniauth-orcid"
-  s.homepage      = %q{https://github.com/gthorisson/omniauth-orcid}
+  s.homepage      = %q{https://github.com/datacite/omniauth-orcid}
   s.summary       = %q{ORCID OAuth 2.0 Strategy for OmniAuth 1.0}
   s.date          = Date.today
   s.description   = %q{Enables third-party client apps to connect to the ORCID API and access/update protected profile data }

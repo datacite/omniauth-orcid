@@ -4,7 +4,6 @@
 
 require 'rubygems'
 require 'sinatra'
-require 'sinatra/config_file'
 require 'haml'
 require 'omniauth-orcid'
 require 'oauth2'
@@ -13,22 +12,24 @@ require 'json'
 enable :sessions
 use Rack::Session::Cookie
 
-config_file 'config.yml'
 if development?
   puts "Sinatra running in development mode"
 elsif production?
-  puts "Sinatra running in production mode"  
+  puts "Sinatra running in production mode"
 end
 
 puts "Connecting to ORCID API at " + settings.site + " as client app #{settings.client_id}"
 
 # Configure the ORCID strategy
 use OmniAuth::Builder do
-  provider :orcid, settings.client_id, settings.client_secret, 
-  :client_options => {
-    :site => settings.site, 
-    :authorize_url => settings.authorize_url,
-    :token_url => settings.token_url
+  provider :orcid, ENV['ORCID_CLIENT_ID'], ENV['ORCID_CLIENT_SECRET'],
+    authorize_params: {
+      scope: '/orcid-profile/read-limited'
+    },
+  client_options: {
+    site: ENV['ORCID_URL'],
+    authorize_url: "#{ENV['ORCID_URL']}/oauth/authorize",
+    token_url: "#{ENV['ORCID_URL']}/oauth/token",
   }
 end
 
@@ -38,7 +39,7 @@ end
 get '/' do
 
   @orcid = ''
-  
+
   if session[:omniauth]
     @orcid = session[:omniauth][:uid]
   end
