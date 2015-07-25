@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description   = %q{Enables third-party client apps to connect to the ORCID API and access/update protected profile data }
   s.files         = Dir["{lib}/**/*.rb", "bin/*", "LICENSE.txt", "*.md", "Rakefile", "Gemfile", "demo.rb", "omniauth-orcid.gemspec"]
   s.require_paths = ["lib"]
-  s.version       = OmniAuth::ORCID::VERSION
+  s.version       = OmniAuth::Orcid::VERSION
   s.extra_rdoc_files = ["README.md"]
   s.license       = 'MIT'
 
