@@ -8,6 +8,10 @@ Provides basic support for connecting a client application to the [Open Research
 
 Originally created for the [ORCID example client application in Rails](https://github.com/gthorisson/ORCID-example-client-app-rails), then turned into a gem.
 
+This gem is used in the [DataCite-ORCID claiming tool](https://github.com/datacite/DataCite-ORCID) and the [Lagotto](https://github.com/lagotto/lagotto) open source application for tracking events around articles and other scholarly outputs.
+
+[GrowKudos](https://www.growkudos.com) is a web app where the gem is in active use. There's a free registration during which (and after which) an ORCID can be connected via oAuth.
+
 
 ## Installation
 
