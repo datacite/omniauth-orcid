@@ -5,7 +5,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
-require 'omniauth-orcid'
+require_relative 'lib/omniauth-orcid'
 require 'oauth2'
 require 'json'
 
