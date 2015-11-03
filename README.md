@@ -34,7 +34,13 @@ gem install omniauth-orcid
 
 Like other OmniAuth strategies, `OmniAuth::Strategies::ORCID` is a piece of Rack middleware. Please read the OmniAuth documentation for detailed instructions: https://github.com/intridea/omniauth.
 
-By default the module connects to the live ORCID service. In the very simplest usage, all you have to provide are your client app credentials ([see more here](http://support.orcid.org/knowledgebase/articles/116739)):
+There are three ways to register a client application and obtain client app credentials (`client_id` and `client_secret`) as well as a `site URL`:
+
+* for non-members (the default): Register your client application in the `Developer Tools` section of your ORCID profile.
+* for members (production): Register your client application [here](http://orcid.org/content/register-client-application).
+* for development (sandbox): Register your client application [here](https://orcid.org/content/register-client-application-sandbox).
+
+By default the module connects to the live ORCID service for non-members. All you have to provide are your client app credentials ([see more here](http://support.orcid.org/knowledgebase/articles/116739)):
 
 ```ruby
 use OmniAuth::Builder do
@@ -42,11 +48,13 @@ use OmniAuth::Builder do
 end
 ```
 
-There are three ways to register a client application and obtain client app credentials (`client_id` and `client_secret`) as well as a `site URL`:
+To connect to the member API and/or sandbox, use the `member` and/or `sandbox` options, e.g.
 
-* for non-members (the default): Register your client application in the `Developer Tools` section of your ORCID profile. Use `https://pub.orcid.org` as `site URL`
-* for members (production): Register your client application [here](http://orcid.org/content/register-client-application). Use https://api.orcid.org as `site URL`
-* for development (sandbox): Register your client application [here](https://orcid.org/content/register-client-application-sandbox). Use https://api.sandbox.orcid.org as `site URL`
+```ruby
+use OmniAuth::Builder do
+  provider :orcid, ENV['ORCID_CLIENT_ID'], ENV['ORCID_CLIENT_SECRET'], member: true, sandbox: true
+end
+```
 
 OmniAuth takes care of the OAuth external-authentication handshake or "dance". All that the gem does is grab the identifier and tokens at the end of the dance and stick it into the OmniAuth hash which is subsequently accessible to your app via `request.env['omniauth.auth']` (see [AuthHashSchema](https://github.com/intridea/omniauth/wiki/Auth-Hash-Schema)). The hash looks something like this:
 
@@ -149,28 +157,6 @@ class AuthenticationsController < ApplicationController
     ..
   end
 ```
-
-
-## Configuration
-
-You can also grab parameters from a environment variables (e.g. using the [dotenv](https://github.com/bkeepers/dotenv) gem) and pass to the strategy, along with other options specific to your app. Here's an example from the bundled Sinatra app in `demo.rb`:
-
-```ruby
-use OmniAuth::Builder do
-  provider :orcid, ENV['ORCID_CLIENT_ID'], ENV['ORCID_CLIENT_SECRET'],
-    authorize_params: {
-      scope: '/orcid-profile/read-limited'
-    },
-  client_options: {
-    site: ENV['API_ORCID_URL'],
-    authorize_url: "#{ENV['ORCID_URL']}/oauth/authorize",
-    token_url: "#{ENV['API_ORCID_URL']}/oauth/token",
-  }
-end
-
-```
-Where `ENV['ORCID_CLIENT_ID']` and `ENV['ORCID_CLIENT_SECRET']` are provided by ORCID when registering the application, and `ENV['API_ORCID_URL']` depends on the API you are using (see above).
-
 
 ## More information
 
