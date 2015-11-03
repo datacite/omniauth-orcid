@@ -6,7 +6,7 @@ module OmniAuth
   module Strategies
     class ORCID < OmniAuth::Strategies::OAuth2
 
-      DEFAULT_SCOPE = '/authenticate'
+      DEFAULT_SCOPE = '/orcid-profile/read-limited /orcid-works/create'
       API_VERSION = '1.2'
 
       option :name, "orcid"
@@ -36,8 +36,8 @@ module OmniAuth
             end
           end
 
-          params[:scope] ||= DEFAULT_SCOPE
           params[:show_login] ||= 'true'
+          params[:scope] ||= DEFAULT_SCOPE
         end
       end
 
@@ -91,17 +91,25 @@ module OmniAuth
       uid { access_token.params["orcid"] }
 
       info do
-        { name: access_token.params["name"] }
+        { name: access_token.params["name"],
+          email: nil,
+          nickname: access_token.params["orcid"],
+          first_name: nil,
+          last_name: nil,
+          location: nil,
+          description: nil,
+          urls: {}
+         }
       end
 
       extra do
         hsh = {}
         hsh[:raw_info] = raw_info unless skip_info?
-        prune! hash
+        hsh
       end
 
       def raw_info
-        @raw_info ||= access_token.get("#{site}/v#{API_VERSION}/#{uid}/orcid-bio").parsed
+        @raw_info ||= client.request(:get, "#{site}/v#{API_VERSION}/#{uid}/orcid-bio", headers: { accept: 'application/json' }).parsed
       end
     end
   end
