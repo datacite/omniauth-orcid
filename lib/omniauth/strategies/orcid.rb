@@ -109,7 +109,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= client.request(:get, "#{site}/v#{API_VERSION}/#{uid}/orcid-bio", headers: { accept: 'application/json' }).parsed
+        @raw_info ||= {} # client.request(:get, "#{site}/v#{API_VERSION}/#{uid}/orcid-bio", headers: { accept: 'application/json' }).parsed
       end
     end
   end
