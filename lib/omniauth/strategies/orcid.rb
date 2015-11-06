@@ -91,25 +91,33 @@ module OmniAuth
       uid { access_token.params["orcid"] }
 
       info do
-        { name: access_token.params["name"],
+        { name: raw_info[:name],
           email: nil,
-          nickname: access_token.params["orcid"],
-          first_name: nil,
-          last_name: nil,
-          location: nil,
-          description: nil,
-          urls: {}
-         }
+          first_name: raw_info[:first_name],
+          last_name: raw_info[:last_name],
+          description: raw_info[:description],
+          urls: raw_info[:urls]
+        }
       end
 
       extra do
-        hsh = {}
-        hsh[:raw_info] = raw_info unless skip_info?
-        hsh
+        skip_info? ? {} : { :raw_info => raw_info }
+      end
+
+      def request_info
+        client.request(:get, "https://pub.orcid.org/v#{API_VERSION}/#{uid}/orcid-bio", headers: { accept: 'application/json' }).parsed || {}
       end
 
       def raw_info
-        @raw_info ||= {} # client.request(:get, "#{site}/v#{API_VERSION}/#{uid}/orcid-bio", headers: { accept: 'application/json' }).parsed
+        orcid_bio = request_info.fetch('orcid-profile', {}).fetch('orcid-bio', {})
+
+        { name: orcid_bio.fetch('personal-details', {}).fetch('credit-name', nil).to_h.fetch('value', nil),
+          first_name: orcid_bio.fetch('personal-details', {}).fetch('given-names', nil).to_h.fetch('value', nil),
+          last_name: orcid_bio.fetch('personal-details', {}).fetch('family-name', nil).to_h.fetch('value', nil),
+          other_names: orcid_bio.fetch('personal-details', {}).fetch('other-names', nil).to_h.fetch('other-name', [{}]).map { |other_name| other_name.fetch('value', nil) },
+          description: orcid_bio.fetch('biography', nil).to_h.fetch('value', nil),
+          urls: {}
+        }
       end
     end
   end
