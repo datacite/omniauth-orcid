@@ -109,12 +109,12 @@ module OmniAuth
       end
 
       def raw_info
-        orcid_bio = request_info.fetch('orcid-profile', {}).fetch('orcid-bio', {})
+        orcid_bio = request_info.fetch('orcid-profile', nil).to_h.fetch('orcid-bio', {})
 
-        { name: orcid_bio.fetch('personal-details', {}).fetch('credit-name', nil).to_h.fetch('value', nil),
-          first_name: orcid_bio.fetch('personal-details', {}).fetch('given-names', nil).to_h.fetch('value', nil),
-          last_name: orcid_bio.fetch('personal-details', {}).fetch('family-name', nil).to_h.fetch('value', nil),
-          other_names: orcid_bio.fetch('personal-details', {}).fetch('other-names', nil).to_h.fetch('other-name', [{}]).map { |other_name| other_name.fetch('value', nil) },
+        { name: orcid_bio.fetch('personal-details', nil).to_h.fetch('credit-name', nil).to_h.fetch('value', nil),
+          first_name: orcid_bio.fetch('personal-details', nil).to_h.fetch('given-names', nil).to_h.fetch('value', nil),
+          last_name: orcid_bio.fetch('personal-details', nil).to_h.fetch('family-name', nil).to_h.fetch('value', nil),
+          other_names: orcid_bio.fetch('personal-details', nil).to_h.fetch('other-names', nil).to_h.fetch('other-name', [{}]).map { |other_name| other_name.fetch('value', nil) },
           description: orcid_bio.fetch('biography', nil).to_h.fetch('value', nil),
           urls: {}
         }
