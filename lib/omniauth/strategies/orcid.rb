@@ -63,6 +63,15 @@ module OmniAuth
         end
       end
 
+      def api_base_url
+        case namespace
+        when 'sandbox' then "https://api.sandbox.orcid.org/v#{API_VERSION}"
+        when 'production' then "https://api.orcid.org/v#{API_VERSION}"
+        when 'public_sandbox' then "https://pub.sandbox.orcid.org/v#{API_VERSION}"
+        when 'public' then "https://pub.orcid.org/v#{API_VERSION}"
+        end
+      end
+
       def authorize_url
         if options[:sandbox]
           'https://sandbox.orcid.org/oauth/authorize'
@@ -105,7 +114,7 @@ module OmniAuth
       end
 
       def request_info
-        client.request(:get, "https://pub.orcid.org/v#{API_VERSION}/#{uid}/orcid-bio", headers: { accept: 'application/json' }).parsed || {}
+        client.request(:get, "#{api_base_url}/#{uid}/orcid-bio", headers: { accept: 'application/json' }).parsed || {}
       end
 
       def raw_info
