@@ -21,4 +21,7 @@ Gem::Specification.new do |s|
   # Declary dependencies here, rather than in the Gemfile
   s.add_dependency 'omniauth-oauth2', '~> 1.3.1'
   s.add_development_dependency 'bundler', '~> 1.0'
+  s.add_development_dependency 'rspec', '~> 3.4'
+  s.add_development_dependency 'rack-test'
+  s.add_development_dependency 'webmock'
 end

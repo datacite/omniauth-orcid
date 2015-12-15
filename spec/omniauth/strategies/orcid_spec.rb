@@ -26,9 +26,9 @@ describe OmniAuth::Strategies::ORCID do
       allow(subject).to receive(:request_info).and_return(request_info_hash)
     end
 
-    it 'should return the uid' do
-      expect(subject.uid).to eq(1)
-    end
+    # it 'should return the uid' do
+    #   expect(subject.uid).to eq(1)
+    # end
   end
 
   describe 'info' do
