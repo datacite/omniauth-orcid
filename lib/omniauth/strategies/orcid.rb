@@ -64,11 +64,10 @@ module OmniAuth
       end
 
       def api_base_url
-        case namespace
-        when 'sandbox' then "https://api.sandbox.orcid.org/v#{API_VERSION}"
-        when 'production' then "https://api.orcid.org/v#{API_VERSION}"
-        when 'public_sandbox' then "https://pub.sandbox.orcid.org/v#{API_VERSION}"
-        when 'public' then "https://pub.orcid.org/v#{API_VERSION}"
+        if options[:sandbox]
+          "https://pub.sandbox.orcid.org/v#{API_VERSION}"
+        else
+          "https://pub.orcid.org/v#{API_VERSION}"
         end
       end
 
