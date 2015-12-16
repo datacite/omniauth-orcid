@@ -23,6 +23,7 @@ module OmniAuth
         super
 
         @options.client_options.site          = site
+        @options.client_options.api_base_url  = api_base_url
         @options.client_options.authorize_url = authorize_url
         @options.client_options.token_url     = token_url
         @options.client_options.scope         = scope

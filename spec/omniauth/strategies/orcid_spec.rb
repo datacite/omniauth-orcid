@@ -16,6 +16,10 @@ describe OmniAuth::Strategies::ORCID do
       expect(subject.options.client_options.authorize_url).to eq('https://orcid.org/oauth/authorize')
     end
 
+    it 'should have correct base url' do
+      expect(subject.options.client_options.api_base_url).to eq('https://pub.orcid.org/v1.2')
+    end
+
     it 'should have correct scope' do
       expect(subject.options.client_options.scope).to eq('/authenticate')
     end
