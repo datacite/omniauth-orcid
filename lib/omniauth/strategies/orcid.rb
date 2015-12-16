@@ -66,9 +66,9 @@ module OmniAuth
 
       def api_base_url
         if options[:sandbox]
-          "https://pub.sandbox.orcid.org/v#{API_VERSION}"
+          "http://pub.sandbox.orcid.org/v#{API_VERSION}"
         else
-          "https://pub.orcid.org/v#{API_VERSION}"
+          "http://pub.orcid.org/v#{API_VERSION}"
         end
       end
 
