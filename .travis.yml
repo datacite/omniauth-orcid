@@ -1,0 +1,17 @@
+language: ruby
+rvm:
+- 2.2
+install:
+- travis_retry bundle install
+script: bundle exec rspec
+deploy:
+  provider: rubygems
+  api_key:
+    secure: YqeY08GVxIbvUPawYI6UrMPXtGUuCMC4u6R1Iup2AGJ7AUlYkMwqrwPfzmZPM2fjCBEpKpbY1OekkFUnUvxZvH4gsqMNB7558At6be/i3W1batAu3KZ6GLRk5HDIQcqb1T3noGU2xjwNprblOgrWO8RKxR/Ey3crqLv77FHtHHBTsI3nPPyYgurs1PvN4hjlxStlYMKlLgRBQeEzSKGajKQwj80HiCV+nHRdEEJ/y+a+ZwaxjMrB7Y7VDW+a+NETQw9yoL1KwVxaugGfpAlqP/oCmRVfL18nyMoVwWqYV44ewQh2NoOpzi1RD05DvFhI4qOHkt0/yRIzO/QhGrhpYmktKR1KgNSu8TJAYcb7J7A2OIx8sqyOraENcZK5fjaatIpSxAg0axo0LnLxKi3zBIr1pcdkzqhQyo1hs1PNvtWSrXDoVgAAb8uqRNfRXKPzrukATvL+gyFJnnxyF/uPzZItxZv/cAbHfNvWJDk3vEquX4P1SiAsG1a1JsWRKgrDPlvT45E74vE1MxIElo+25NktLqutG1dwz/TFFrDcTGSTwO/NijGdAPJVfbTDuVblKCh9UZmf38X9+3QT5U8OA4Z4GaG8Aud0PB+ml27uDGqBtS7PGC69/q3lbV9s7zpYe/9pnhRfHGzNCGcKpPIbW2gUiJINKbd5ZV4KMv1uZCM=
+  gem: omniauth-orcid
+  on:
+    tags: true
+    repo: datacite/omniauth-orcid
+
+notifications:
+  slack: datacite:Wt8En0ALoTA6Kjc5EOKNDWxN

@@ -1,5 +1,6 @@
 # OmniAuth ORCID
 
+[![Build Status](https://travis-ci.org/datacite/omniauth-orcid.svg?branch=master)](https://travis-ci.org/datacite/omniauth-orcid)
 [![DOI](https://zenodo.org/badge/15088/datacite/omniauth-orcid.svg)](https://zenodo.org/badge/latestdoi/15088/datacite/omniauth-orcid)
 
 ORCID OAuth 2.0 Strategy for the [OmniAuth Ruby authentication framework](http://www.omniauth.org).
