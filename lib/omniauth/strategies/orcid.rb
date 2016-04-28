@@ -6,7 +6,7 @@ module OmniAuth
   module Strategies
     class ORCID < OmniAuth::Strategies::OAuth2
 
-      DEFAULT_SCOPE = '/orcid-profile/read-limited /orcid-works/create'
+      DEFAULT_SCOPE = '/orcid-profile/read-limited /orcid-works/create /orcid-bio/external-identifiers/create /affiliations/create /funding/create'
       API_VERSION = '1.2'
 
       option :name, "orcid"
