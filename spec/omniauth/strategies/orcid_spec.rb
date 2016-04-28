@@ -17,7 +17,7 @@ describe OmniAuth::Strategies::ORCID do
     end
 
     it 'should have correct base url' do
-      expect(subject.options.client_options.api_base_url).to eq('https://pub.orcid.org/v1.2')
+      expect(subject.options.client_options.api_base_url).to eq('http://pub.orcid.org/v1.2')
     end
 
     it 'should have correct scope' do

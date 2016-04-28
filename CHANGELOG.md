@@ -1,6 +1,6 @@
-## v.1.1 (April 29, 2016)
+## v.1.1.1 (April 29, 2016)
 
-[onmiauth-orcid 1.1](https://github.com/datacite/omniauth-orcid/releases/tag/v.1.1) was released on April 29, 2016 with the following changes:
+[onmiauth-orcid 1.1.1](https://github.com/datacite/omniauth-orcid/releases/tag/v.1.1.1) was released on April 29, 2016 with the following changes:
 
 * added `/orcid-bio/external-identifiers/create /affiliations/create /funding/create` to the default scope
 
