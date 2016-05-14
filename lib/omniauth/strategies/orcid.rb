@@ -38,7 +38,6 @@ module OmniAuth
           end
 
           params[:show_login] ||= 'true'
-          params[:scope] ||= DEFAULT_SCOPE
         end
       end
 
