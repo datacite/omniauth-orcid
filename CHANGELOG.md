@@ -1,3 +1,9 @@
+## v.1.1.5 (August 11, 2016)
+
+[onmiauth-orcid 1.1.5](https://github.com/datacite/omniauth-orcid/releases/tag/v.1.1.5) was released on August 11, 2016 with the following changes:
+
+* compatibility with omniauth-oauth2 1.4.0. Thanks to pull request [#7](https://github.com/datacite/omniauth-orcid/pull/7) by [eleanorakh](https://github.com/eleanorakh).
+
 ## v.1.1.4 (May 14, 2016)
 
 [onmiauth-orcid 1.1.4](https://github.com/datacite/omniauth-orcid/releases/tag/v.1.1.4) was released on May 14, 2016 with the following changes:
