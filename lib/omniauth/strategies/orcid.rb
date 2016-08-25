@@ -6,7 +6,6 @@ module OmniAuth
   module Strategies
     class ORCID < OmniAuth::Strategies::OAuth2
 
-      DEFAULT_SCOPE = '/orcid-profile/read-limited /orcid-works/create'
       API_VERSION = '1.2'
 
       option :name, "orcid"
@@ -15,7 +14,13 @@ module OmniAuth
       option :sandbox, false
       option :provider_ignores_state, true
 
-      option :authorize_options, [:redirect_uri, :show_login]
+      option :authorize_options, [:redirect_uri,
+                                  :show_login,
+                                  :lang,
+                                  :given_names,
+                                  :family_names,
+                                  :email,
+                                  :orcid]
 
       args [:client_id, :client_secret]
 
@@ -29,15 +34,17 @@ module OmniAuth
         @options.client_options.scope         = scope
       end
 
+      # available options at https://members.orcid.org/api/get-oauthauthorize
       def authorize_params
         super.tap do |params|
-          %w[scope redirect_uri show_login lang].each do |v|
-            if request.params[v]
-              params[v.to_sym] = request.params[v]
-            end
+          options[:authorize_options].each do |k|
+            params[k] = request.params[k.to_s] unless [nil, ''].include?(request.params[k.to_s])
           end
 
-          params[:show_login] ||= 'true'
+          # show login form and not registration form by default
+          params[:show_login] = 'true' if params[:show_login].nil?
+
+          session['omniauth.state'] = params[:state] if params['state']
         end
       end
 
