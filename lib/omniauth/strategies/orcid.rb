@@ -107,7 +107,7 @@ module OmniAuth
 
       info do
         { name: raw_info[:name],
-          email: nil,
+          email: raw_info[:email],
           first_name: raw_info[:first_name],
           last_name: raw_info[:last_name],
           description: raw_info[:description],
@@ -126,12 +126,29 @@ module OmniAuth
       def raw_info
         orcid_bio = request_info.fetch('orcid-profile', nil).to_h.fetch('orcid-bio', {})
 
+        emails = orcid_bio.fetch('contact-details', nil).to_h.fetch('email', nil)
+        email = nil
+
+        if emails.is_a? Array
+
+          emails.each do |e|
+
+            next unless e['visibility'] == "PUBLIC"
+            next unless e['verified']
+            email = e['value']
+            break
+
+          end
+
+        end
+
         { name: orcid_bio.fetch('personal-details', nil).to_h.fetch('credit-name', nil).to_h.fetch('value', nil),
           first_name: orcid_bio.fetch('personal-details', nil).to_h.fetch('given-names', nil).to_h.fetch('value', nil),
           last_name: orcid_bio.fetch('personal-details', nil).to_h.fetch('family-name', nil).to_h.fetch('value', nil),
           other_names: orcid_bio.fetch('personal-details', nil).to_h.fetch('other-names', nil).to_h.fetch('other-name', [{}]).map { |other_name| other_name.fetch('value', nil) },
           description: orcid_bio.fetch('biography', nil).to_h.fetch('value', nil),
-          urls: {}
+          urls: {},
+          email: email
         }
       end
 
