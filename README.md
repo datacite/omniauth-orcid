@@ -1,5 +1,6 @@
 # OmniAuth ORCID
 
+[![Gem Version](https://badge.fury.io/rb/omniauth-orcid.svg)](https://badge.fury.io/rb/omniauth-orcid)
 [![Build Status](https://travis-ci.org/datacite/omniauth-orcid.svg?branch=master)](https://travis-ci.org/datacite/omniauth-orcid)
 [![DOI](https://zenodo.org/badge/15088/datacite/omniauth-orcid.svg)](https://zenodo.org/badge/latestdoi/15088/datacite/omniauth-orcid)
 
