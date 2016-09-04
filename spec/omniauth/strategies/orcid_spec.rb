@@ -31,7 +31,7 @@ describe OmniAuth::Strategies::ORCID do
 
     describe "default" do
       it 'should have correct site' do
-        expect(subject.options.client_options.site).to eq('http://pub.orcid.org')
+        expect(subject.options.client_options.site).to eq('https://pub.orcid.org')
       end
 
       it 'should have correct scope' do
@@ -57,7 +57,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct site' do
-        expect(subject.options.client_options.site).to eq("http://pub.sandbox.orcid.org")
+        expect(subject.options.client_options.site).to eq("https://pub.sandbox.orcid.org")
       end
 
       it 'should have correct scope' do
@@ -83,7 +83,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct site' do
-        expect(subject.options.client_options.site).to eq('http://api.orcid.org')
+        expect(subject.options.client_options.site).to eq('https://api.orcid.org')
       end
 
       it 'should have correct scope' do
@@ -101,7 +101,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct site' do
-        expect(subject.options.client_options.site).to eq("http://api.sandbox.orcid.org")
+        expect(subject.options.client_options.site).to eq("https://api.sandbox.orcid.org")
       end
 
       it 'should have correct scope' do

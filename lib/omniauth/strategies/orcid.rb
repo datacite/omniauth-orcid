@@ -65,10 +65,10 @@ module OmniAuth
 
       def site
         case namespace
-        when 'sandbox' then 'http://api.sandbox.orcid.org'
-        when 'production' then 'http://api.orcid.org'
-        when 'public_sandbox' then 'http://pub.sandbox.orcid.org'
-        when 'public' then 'http://pub.orcid.org'
+        when 'sandbox' then 'https://api.sandbox.orcid.org'
+        when 'production' then 'https://api.orcid.org'
+        when 'public_sandbox' then 'https://pub.sandbox.orcid.org'
+        when 'public' then 'https://pub.orcid.org'
         end
       end
 
@@ -89,12 +89,7 @@ module OmniAuth
       end
 
       def token_url
-        case namespace
-        when 'sandbox' then 'https://api.sandbox.orcid.org/oauth/token'
-        when 'production' then 'https://api.orcid.org/oauth/token'
-        when 'public_sandbox' then 'https://pub.sandbox.orcid.org/oauth/token'
-        when 'public' then 'https://pub.orcid.org/oauth/token'
-        end
+        site + '/oauth/token'
       end
 
       def scope
