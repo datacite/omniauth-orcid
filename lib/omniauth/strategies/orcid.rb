@@ -20,7 +20,8 @@ module OmniAuth
                                   :given_names,
                                   :family_names,
                                   :email,
-                                  :orcid]
+                                  :orcid,
+                                  :scope]
 
       args [:client_id, :client_secret]
 
@@ -31,13 +32,12 @@ module OmniAuth
         @options.client_options.api_base_url  = api_base_url
         @options.client_options.authorize_url = authorize_url
         @options.client_options.token_url     = token_url
-        @options.client_options.scope         = scope
       end
 
       # available options at https://members.orcid.org/api/get-oauthauthorize
       def authorize_params
         super.tap do |params|
-          %w[scope authorize_options].each do |v|
+          %w[scope redirect_uri show_login lang given_names family_names email orcid].each do |v|
             if request.params[v]
               params[v.to_sym] = request.params[v]
             end
@@ -47,6 +47,8 @@ module OmniAuth
           params[:show_login] = 'true' if params[:show_login].nil?
 
           session['omniauth.state'] = params[:state] if params['state']
+
+          params[:scope] ||= scope
         end
       end
 

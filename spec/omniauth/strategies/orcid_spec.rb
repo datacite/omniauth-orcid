@@ -35,7 +35,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct scope' do
-        expect(subject.options.client_options.scope).to eq('/authenticate')
+        expect(subject.authorize_params['scope']).to eq('/authenticate')
       end
 
       it 'should have correct token url' do
@@ -61,7 +61,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct scope' do
-        expect(subject.options.client_options.scope).to eq("/authenticate")
+        expect(subject.authorize_params['scope']).to eq("/authenticate")
       end
 
       it 'should have correct token url' do
@@ -87,7 +87,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct scope' do
-        expect(subject.options.client_options.scope).to eq('/read-limited /activities/update /orcid-bio/update')
+        expect(subject.authorize_params['scope']).to eq('/read-limited /activities/update /orcid-bio/update')
       end
 
       it 'should have correct token url' do
@@ -105,7 +105,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct scope' do
-        expect(subject.options.client_options.scope).to eq('/read-limited /activities/update /orcid-bio/update')
+        expect(subject.authorize_params['scope']).to eq('/read-limited /activities/update /orcid-bio/update')
       end
 
       it 'should have correct token url' do
@@ -160,6 +160,18 @@ describe OmniAuth::Strategies::ORCID do
         expect(subject.authorize_params["given_names"]).to eq("Josiah")
         expect(subject.authorize_params["family_names"]).to eq("Carberry")
         expect(subject.authorize_params["email"]).to eq("josiah@brown.edu")
+      end
+    end
+
+    describe "scope" do
+      it 'should default to nil' do
+        @options = {}
+        expect(subject.authorize_params['scope']).to eq("/authenticate")
+      end
+
+      it 'should set the scope parameter if present' do
+        @options = { scope: '/read-limited' }
+        expect(subject.authorize_params['scope']).to eq("/read-limited")
       end
     end
   end
