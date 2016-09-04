@@ -2,6 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/omniauth-orcid.svg)](https://badge.fury.io/rb/omniauth-orcid)
 [![Build Status](https://travis-ci.org/datacite/omniauth-orcid.svg?branch=master)](https://travis-ci.org/datacite/omniauth-orcid)
+[![Test Coverage](https://codeclimate.com/github/datacite/omniauth-orcid/badges/coverage.svg)](https://codeclimate.com/github/datacite/omniauth-orcid/coverage)
+[![Code Climate](https://codeclimate.com/github/datacite/omniauth-orcid/badges/gpa.svg)](https://codeclimate.com/github/datacite/omniauth-orcid)
 [![DOI](https://zenodo.org/badge/15088/datacite/omniauth-orcid.svg)](https://zenodo.org/badge/latestdoi/15088/datacite/omniauth-orcid)
 
 ORCID OAuth 2.0 Strategy for the [OmniAuth Ruby authentication framework](http://www.omniauth.org).
