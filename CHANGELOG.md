@@ -1,3 +1,10 @@
+## v.1.2.1 (September 4, 2016)
+
+[onmiauth-orcid 1.2.1](https://github.com/datacite/omniauth-orcid/releases/tag/v.1.2.1) was released on September 3, 2016 with the following changes:
+
+* fixed missing scope. Scope can be manually set via `param[:scope]`.
+* polished rspec tests
+
 ## v.1.1.5 (August 11, 2016)
 
 [onmiauth-orcid 1.1.5](https://github.com/datacite/omniauth-orcid/releases/tag/v.1.1.5) was released on August 11, 2016 with the following changes:

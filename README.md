@@ -33,7 +33,6 @@ You can also install the gem system-wide in the usual way:
 gem install omniauth-orcid
 ```
 
-
 ## Getting started
 
 Like other OmniAuth strategies, `OmniAuth::Strategies::ORCID` is a piece of Rack middleware. Please read the OmniAuth documentation for detailed instructions: https://github.com/intridea/omniauth.
@@ -59,6 +58,13 @@ use OmniAuth::Builder do
   provider :orcid, ENV['ORCID_CLIENT_ID'], ENV['ORCID_CLIENT_SECRET'], member: true, sandbox: true
 end
 ```
+
+`omniauth-orcid` sets the appropriate default scope depending on the `member` falg:
+
+* non-member: `/authenticate`
+* member: `/read-limited /activities/update /orcid-bio/update`
+
+You can override the scope via the `scope` query param.
 
 OmniAuth takes care of the OAuth external-authentication handshake or "dance". All that the gem does is grab the identifier and tokens at the end of the dance and stick it into the OmniAuth hash which is subsequently accessible to your app via `request.env['omniauth.auth']` (see [AuthHashSchema](https://github.com/intridea/omniauth/wiki/Auth-Hash-Schema)). The hash looks something like this:
 
