@@ -1,3 +1,10 @@
+## v.1.2.2 (November 6, 2016)
+
+[onmiauth-orcid 1.2.2](https://github.com/datacite/omniauth-orcid/releases/tag/v.1.2.2) was released on November, 2016 with the following changes:
+
+* changed default member scopes to `/read-limited /activities/update /person/update`
+* upgrade to new `codeclimate-test-reporter` workflow
+
 ## v.1.2.1 (September 4, 2016)
 
 [onmiauth-orcid 1.2.1](https://github.com/datacite/omniauth-orcid/releases/tag/v.1.2.1) was released on September 3, 2016 with the following changes:
