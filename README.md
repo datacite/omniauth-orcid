@@ -62,7 +62,7 @@ end
 `omniauth-orcid` sets the appropriate default scope depending on the `member` falg:
 
 * non-member: `/authenticate`
-* member: `/read-limited /activities/update /orcid-bio/update`
+* member: `/read-limited /activities/update /person/update`
 
 You can override the scope via the `scope` query param.
 
