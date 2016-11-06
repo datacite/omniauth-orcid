@@ -87,7 +87,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct scope' do
-        expect(subject.authorize_params['scope']).to eq('/read-limited /activities/update /orcid-bio/update')
+        expect(subject.authorize_params['scope']).to eq('/read-limited /activities/update /person/update')
       end
 
       it 'should have correct token url' do
@@ -105,7 +105,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct scope' do
-        expect(subject.authorize_params['scope']).to eq('/read-limited /activities/update /orcid-bio/update')
+        expect(subject.authorize_params['scope']).to eq('/read-limited /activities/update /person/update')
       end
 
       it 'should have correct token url' do

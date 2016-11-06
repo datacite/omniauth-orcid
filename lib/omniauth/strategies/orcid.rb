@@ -96,7 +96,7 @@ module OmniAuth
 
       def scope
         if options[:member]
-          '/read-limited /activities/update /orcid-bio/update'
+          '/read-limited /activities/update /person/update'
         else
           '/authenticate'
         end
