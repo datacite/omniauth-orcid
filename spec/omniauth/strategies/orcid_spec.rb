@@ -39,7 +39,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct token url' do
-        expect(subject.options.client_options.token_url).to eq("https://pub.orcid.org/oauth/token")
+        expect(subject.options.client_options.token_url).to eq("https://orcid.org/oauth/token")
       end
 
       it 'should have correct authorize url' do
@@ -65,7 +65,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct token url' do
-        expect(subject.options.client_options.token_url).to eq("https://pub.sandbox.orcid.org/oauth/token")
+        expect(subject.options.client_options.token_url).to eq("https://sandbox.orcid.org/oauth/token")
       end
 
       it 'should have correct authorize url' do
@@ -91,7 +91,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct token url' do
-        expect(subject.options.client_options.token_url).to eq("https://api.orcid.org/oauth/token")
+        expect(subject.options.client_options.token_url).to eq("https://orcid.org/oauth/token")
       end
     end
 
@@ -109,7 +109,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct token url' do
-        expect(subject.options.client_options.token_url).to eq("https://api.sandbox.orcid.org/oauth/token")
+        expect(subject.options.client_options.token_url).to eq("https://sandbox.orcid.org/oauth/token")
       end
     end
 

@@ -82,16 +82,20 @@ module OmniAuth
         end
       end
 
-      def authorize_url
+      def root_url
         if options[:sandbox]
-          'https://sandbox.orcid.org/oauth/authorize'
+          'https://sandbox.orcid.org'
         else
-          'https://orcid.org/oauth/authorize'
+          'https://orcid.org'
         end
       end
 
+      def authorize_url
+        root_url + '/oauth/authorize'
+      end
+
       def token_url
-        site + '/oauth/token'
+        root_url + '/oauth/token'
       end
 
       def scope
