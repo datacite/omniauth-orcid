@@ -59,7 +59,7 @@ use OmniAuth::Builder do
 end
 ```
 
-`omniauth-orcid` sets the appropriate default scope depending on the `member` falg:
+`omniauth-orcid` sets the appropriate default scope depending on the `member` flag:
 
 * non-member: `/authenticate`
 * member: `/read-limited /activities/update /person/update`
@@ -74,7 +74,14 @@ OmniAuth takes care of the OAuth external-authentication handshake or "dance". A
   "uid": "0000-0003-2012-0010",
   "info": {
     "name": "John Smith",
-    "email": null
+    "email": "jsmith@example.com",
+    "first_name": "John",
+    "last_name": "Smith",
+    "location": "GB",
+    "description": "John Smith is the ...",
+    "urls": [
+      { "Blog": "http://blog.martinfenner.org" }
+    ]
   },
   "credentials": {
     "token": "e82938fa-a287-42cf-a2ce-f48ef68c9a35",
@@ -83,13 +90,32 @@ OmniAuth takes care of the OAuth external-authentication handshake or "dance". A
     "expires": true
   },
   "extra": {
+    "raw_info": {
+      "email": "jsmith@example.com",
+      "first_name": "John",
+      "last_name": "Smith",
+      "other_names": ["John Fitzgerald Smith"],
+      "location": "GB",
+      "description": "John Smith is the ...",
+      "urls": [
+        { "Blog": "http://blog.martinfenner.org" }
+      ],
+      "external_identifiers": [
+        { "type": "GitHub",
+          "value":"mfenner",
+          "url": "https://github.com/mfenner" }
+      ]
+    }
   }
 }
 ```
+ject. Martin has a medical degree from the Free University of Berlin and is a Board-certified medical oncologist.", :location=>["DE"], :urls=>["http://blog.martinfenner.org"], :external_identifiers=>[{"type"=>"GitHub", "value"=>"mfenner", "url"=>"https://github.com/mfenner"}]}
+........
+
 
 You have to implement a callback handler to grab at least the `uid` from the hash and (typically) save it in a session. This effectively provides basic **Log in with your ORCID** functionality.
 
-Most likely, with the token in hand, you'll want to do something more sophisticated with the API, like retrieving profile data and do something cool with it. See the [API documentation](http://members.orcid.org/api/api-calls) for more details:
+Most likely, with the token in hand, you'll want to do something more sophisticated with the API, like retrieving profile data and do something cool with it. See the [Basic Tutorial: Read data on ORCID record](http://members.orcid.org/api/tutorial/read-orcid-records) for more details.
 
 Here's how to get going with a couple of popular Rack-based frameworks:
 
@@ -133,9 +159,7 @@ ruby demo.rb
 
 ```
 
-
 ### Rails
-
 
 Add this to `config/initializers/omniauth.rb` to configure the strategy:
 
@@ -168,12 +192,38 @@ class AuthenticationsController < ApplicationController
   end
 ```
 
+Or use `omniauth-orcid` with the [Devise](https://github.com/plataformatec/devise)
+authentication solution.
+
+```ruby
+# in config/initializers/devise.rb
+
+config.omniauth :orcid, ENV['ORCID_CLIENT_ID'],
+                        ENV['ORCID_CLIENT_SECRET'],
+                        member: ENV['ORCID_MEMBER'],
+                        sandbox: ENV['ORCID_SANDBOX']
+```
+
+```ruby
+# in app/models/user.rb
+
+devise :omniauthable, :omniauth_providers => [:orcid]
+```
+
+```ruby
+# in config/routes.rb
+
+Rails.application.routes.draw do
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+```
+
+And then add custom logic in `users/omniauth_callbacks`.
+
 ## More information
 
 * [ORCID Open Source Project](https://github.com/ORCID/ORCID-Source)
 * [Developer Wiki](https://github.com/ORCID/ORCID-Source/wiki)
 * [Technical community](http://orcid.org/about/community/orcid-technical-community)
-
 
 ## License
 

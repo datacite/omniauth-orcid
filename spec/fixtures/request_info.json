@@ -1,0 +1,213 @@
+{
+  "name": {
+    "credit-name": {
+      "value": "Martin Fenner"
+    },
+    "family-name": {
+      "value": "Fenner"
+    },
+    "last-modified-date": {
+      "value": 1500190904445
+    },
+    "created-date": {
+      "value": 1460669194723
+    },
+    "visibility": "PUBLIC",
+    "source": null,
+    "given-names": {
+      "value": "Martin"
+    },
+    "path": "0000-0001-6528-2027"
+  },
+  "last-modified-date": {
+    "value": 1500192622273
+  },
+  "researcher-urls": {
+    "researcher-url": [
+      {
+        "put-code": 42818,
+        "last-modified-date": {
+          "value": 1500192382862
+        },
+        "url": {
+          "value": "http://blog.martinfenner.org"
+        },
+        "created-date": {
+          "value": 1500192382862
+        },
+        "visibility": "PUBLIC",
+        "source": {
+          "source-orcid": {
+            "path": "0000-0001-6528-2027",
+            "host": "sandbox.orcid.org",
+            "uri": "http://sandbox.orcid.org/0000-0001-6528-2027"
+          },
+          "source-name": {
+            "value": "Martin Fenner"
+          },
+          "source-client-id": null
+        },
+        "display-index": 1,
+        "path": "/0000-0001-6528-2027/researcher-urls/42818",
+        "url-name": "Blog"
+      }
+    ],
+    "path": "/0000-0001-6528-2027/researcher-urls",
+    "last-modified-date": {
+      "value": 1500192382862
+    }
+  },
+  "other-names": {
+    "other-name": [
+      {
+        "put-code": 16403,
+        "last-modified-date": {
+          "value": 1500191301536
+        },
+        "created-date": {
+          "value": 1500191301534
+        },
+        "visibility": "PUBLIC",
+        "content": "Martin Hellmut Fenner",
+        "source": {
+          "source-orcid": {
+            "path": "0000-0001-6528-2027",
+            "host": "sandbox.orcid.org",
+            "uri": "http://sandbox.orcid.org/0000-0001-6528-2027"
+          },
+          "source-name": {
+            "value": "Martin Fenner"
+          },
+          "source-client-id": null
+        },
+        "display-index": 1,
+        "path": "/0000-0001-6528-2027/other-names/16403"
+      }
+    ],
+    "path": "/0000-0001-6528-2027/other-names",
+    "last-modified-date": {
+      "value": 1500191301536
+    }
+  },
+  "keywords": {
+    "path": "/0000-0001-6528-2027/keywords",
+    "keyword": [],
+    "last-modified-date": null
+  },
+  "path": "/0000-0001-6528-2027/person",
+  "external-identifiers": {
+    "path": "/0000-0001-6528-2027/external-identifiers",
+    "external-identifier": [
+      {
+        "external-id-value": "mfenner",
+        "put-code": 3882,
+        "last-modified-date": {
+          "value": 1499800792190
+        },
+        "external-id-relationship": "SELF",
+        "created-date": {
+          "value": 1499800792189
+        },
+        "external-id-type": "GitHub",
+        "source": {
+          "source-orcid": null,
+          "source-name": {
+            "value": "DataCite/ORCID Claim Tool"
+          },
+          "source-client-id": {
+            "path": "APP-127VAQ5PMV9OKM9F",
+            "host": "sandbox.orcid.org",
+            "uri": "http://sandbox.orcid.org/client/APP-127VAQ5PMV9OKM9F"
+          }
+        },
+        "visibility": "PUBLIC",
+        "display-index": 0,
+        "path": "/0000-0001-6528-2027/external-identifiers/3882",
+        "external-id-url": {
+          "value": "https://github.com/mfenner"
+        }
+      }
+    ],
+    "last-modified-date": {
+      "value": 1499800792190
+    }
+  },
+  "emails": {
+    "path": "/0000-0001-6528-2027/email",
+    "email": [
+      {
+        "put-code": null,
+        "verified": true,
+        "last-modified-date": {
+          "value": 1438058214424
+        },
+        "created-date": {
+          "value": 1438058214424
+        },
+        "visibility": "LIMITED",
+        "primary": true,
+        "source": {
+          "source-orcid": {
+            "path": "0000-0001-6528-2027",
+            "host": "sandbox.orcid.org",
+            "uri": "http://sandbox.orcid.org/0000-0001-6528-2027"
+          },
+          "source-name": {
+            "value": "Martin Fenner"
+          },
+          "source-client-id": null
+        },
+        "path": null,
+        "email": "martin.fenner@datacite.org"
+      }
+    ],
+    "last-modified-date": {
+      "value": 1438058214424
+    }
+  },
+  "biography": {
+    "content": "Martin Fenner is the DataCite Technical Director and manages the technical architecture for Datacite as well as DataCite\u2019s technical contributions for the EU-funded THOR project. From 2012 to 2015 he was the technical lead for the PLOS Article-Level Metrics project. Martin has a medical degree from the Free University of Berlin and is a Board-certified medical oncologist.",
+    "path": "/0000-0001-6528-2027/biography",
+    "created-date": {
+      "value": 1460669194724
+    },
+    "visibility": "PUBLIC",
+    "last-modified-date": {
+      "value": 1500206408067
+    }
+  },
+  "addresses": {
+    "path": "/0000-0001-6528-2027/address",
+    "address": [
+      {
+        "put-code": 4809,
+        "last-modified-date": {
+          "value": 1500192622273
+        },
+        "country": {
+          "value": "DE"
+        },
+        "created-date": {
+          "value": 1500192622273
+        },
+        "visibility": "PUBLIC",
+        "source": {
+          "source-orcid": {
+            "path": "0000-0001-6528-2027",
+            "host": "sandbox.orcid.org",
+            "uri": "http://sandbox.orcid.org/0000-0001-6528-2027"
+          },
+          "source-name": {
+            "value": "Martin Fenner"
+          },
+          "source-client-id": null
+        },
+        "display-index": 1,
+        "path": "/0000-0001-6528-2027/address/4809"
+      }
+    ],
+    "last-modified-date": {
+      "value": 1500192622273
+    }
+  }
+}

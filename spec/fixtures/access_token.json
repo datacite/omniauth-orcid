@@ -1,0 +1,9 @@
+{
+  "name": "Martin Fenner",
+  "access_token": "123",
+  "expires_in": 631138518,
+  "token_type": "bearer",
+  "orcid": "0000-0001-6528-2027",
+  "scope": "/read-limited",
+  "refresh_token": "456"
+}

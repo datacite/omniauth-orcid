@@ -112,8 +112,8 @@ module OmniAuth
           email: raw_info[:email],
           first_name: raw_info[:first_name],
           last_name: raw_info[:last_name],
-          description: raw_info[:description],
           location: raw_info[:location],
+          description: raw_info[:description],
           urls: raw_info[:urls]
         }
       end
@@ -132,16 +132,17 @@ module OmniAuth
         # all other information will in almost all cases be PUBLIC
         emails = request_info.dig('emails', 'email')
           .select { |e| e.fetch('verified') }
-          .map { |e| e.delete_if { |k, v| %w(email visibility primary).exclude?(k) } }
+          .map { |e| e.select { |k, | %w(email visibility primary).include? k } }
 
-        { first_name: request_info.dig('name', 'given-name', 'value'),
+        { first_name: request_info.dig('name', 'given-names', 'value'),
           last_name: request_info.dig('name', 'family-name', 'value'),
-          other_names: request_info.dig('other-names', 'other-name').map { |o| o.fetch('content', nil) },
+          other_names: request_info.dig('other-names', 'other-name').map { |o| o.fetch('content') },
           description: request_info.dig('biography', 'content'),
-          location: request_info.dig('addresses', 'address').map { |a| a.dig('country', 'value') },
+          location: request_info.dig('addresses', 'address').map { |a| a.dig('country', 'value') }.first,
           email: emails.find { |e| e.fetch('primary') }.to_h.fetch('email'),
-          emails: emails,
-          urls: request_info.dig('researcher-urls', 'researcher-url').map { |r| r.dig('url', 'value') },
+          urls: request_info.dig('researcher-urls', 'researcher-url').map do |r|
+            { r.fetch("url-name", nil) => r.dig('url', 'value') }
+          end,
           external_identifiers: request_info.dig('external-identifiers', 'external-identifier').map do |e|
             { 'type' => e.fetch('external-id-type', nil),
               'value' => e.fetch('external-id-value', nil),

@@ -176,23 +176,90 @@ describe OmniAuth::Strategies::ORCID do
     end
   end
 
-  describe 'extra' do
-    describe 'raw_info' do
-      context 'when skip_info is true' do
-        before { subject.options[:skip_info] = true }
+  context 'info' do
+    let(:params) { JSON.parse(IO.read(fixture_path + 'access_token.json')) }
+    let(:access_token) { OpenStruct.new("params" => params) }
+    let(:request_info) { JSON.parse(IO.read(fixture_path + 'request_info.json')) }
 
-        it 'should not include raw_info' do
-          expect(subject.extra).not_to have_key(:raw_info)
-        end
-      end
+    before do
+      allow(subject).to receive(:access_token).and_return(access_token)
+      allow(subject).to receive(:request_info).and_return(request_info)
+    end
 
-      # context 'when skip_info is false' do
-      #   before { subject.options[:skip_info] = false }
-      #
-      #   it 'should include raw_info' do
-      #     expect(subject.extra[:raw_info]).to eq('sub' => '12345')
-      #   end
-      # end
+    it 'should return name' do
+      expect(subject.info[:name]).to eq('Martin Fenner')
+    end
+
+    it 'should return first_name' do
+      expect(subject.info[:first_name]).to eq('Martin')
+    end
+
+    it 'should return last_name' do
+      expect(subject.info[:last_name]).to eq('Fenner')
+    end
+
+    it 'should return description' do
+      expect(subject.info[:description]).to start_with('Martin Fenner is the DataCite Technical Director')
+    end
+
+    it 'should return location' do
+      expect(subject.info[:location]).to eq("DE")
+    end
+
+    it 'should return email' do
+      expect(subject.info[:email]).to eq( "martin.fenner@datacite.org")
+    end
+
+    it 'should return urls' do
+      expect(subject.info[:urls]).to eq([{"Blog"=>"http://blog.martinfenner.org"}])
+    end
+  end
+
+  context 'raw_info' do
+    let(:params) { JSON.parse(IO.read(fixture_path + 'access_token.json')) }
+    let(:access_token) { OpenStruct.new("params" => params) }
+    let(:request_info) { JSON.parse(IO.read(fixture_path + 'request_info.json')) }
+
+    before do
+      allow(subject).to receive(:access_token).and_return(access_token)
+      allow(subject).to receive(:request_info).and_return(request_info)
+    end
+
+    it 'should not include raw_info' do
+      subject.options[:skip_info] = true
+      expect(subject.extra).not_to have_key(:raw_info)
+    end
+
+    it 'should return first_name' do
+      expect(subject.extra.dig(:raw_info, :first_name)).to eq('Martin')
+    end
+
+    it 'should return last_name' do
+      expect(subject.extra.dig(:raw_info, :last_name)).to eq('Fenner')
+    end
+
+    it 'should return other_names' do
+      expect(subject.extra.dig(:raw_info, :other_names)).to eq(["Martin Hellmut Fenner"])
+    end
+
+    it 'should return description' do
+      expect(subject.extra.dig(:raw_info, :description)).to start_with('Martin Fenner is the DataCite Technical Director')
+    end
+
+    it 'should return location' do
+      expect(subject.extra.dig(:raw_info, :location)).to eq("DE")
+    end
+
+    it 'should return email' do
+      expect(subject.extra.dig(:raw_info, :email)).to eq( "martin.fenner@datacite.org")
+    end
+
+    it 'should return urls' do
+      expect(subject.extra.dig(:raw_info, :urls)).to eq([{"Blog"=>"http://blog.martinfenner.org"}])
+    end
+
+    it 'should return external_identifiers' do
+      expect(subject.extra.dig(:raw_info, :external_identifiers)).to eq([{"type"=>"GitHub", "value"=>"mfenner", "url"=>"https://github.com/mfenner"}])
     end
   end
 end

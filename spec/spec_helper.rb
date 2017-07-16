@@ -11,6 +11,10 @@ require 'webmock/rspec'
 require 'omniauth'
 require 'omniauth-orcid'
 
+def fixture_path
+  File.expand_path("../fixtures", __FILE__) + '/'
+end
+
 RSpec.configure do |config|
   config.include WebMock::API
   config.include Rack::Test::Methods
