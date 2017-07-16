@@ -1,5 +1,5 @@
 module OmniAuth
   module Orcid
-    VERSION = "1.2.3"
+    VERSION = "2.0rc1"
   end
 end

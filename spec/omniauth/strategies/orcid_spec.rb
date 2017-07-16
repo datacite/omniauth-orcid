@@ -47,7 +47,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct base url' do
-        expect(subject.options.client_options.api_base_url).to eq('http://pub.orcid.org/v1.2')
+        expect(subject.options.client_options.api_base_url).to eq('https://pub.orcid.org/v2.0')
       end
     end
 
@@ -73,7 +73,7 @@ describe OmniAuth::Strategies::ORCID do
       end
 
       it 'should have correct base url' do
-        expect(subject.options.client_options.api_base_url).to eq("http://pub.sandbox.orcid.org/v1.2")
+        expect(subject.options.client_options.api_base_url).to eq("https://pub.sandbox.orcid.org/v2.0")
       end
     end
 
@@ -188,11 +188,8 @@ describe OmniAuth::Strategies::ORCID do
 
       # context 'when skip_info is false' do
       #   before { subject.options[:skip_info] = false }
-
+      #
       #   it 'should include raw_info' do
-      #     stub_request(:get, "http://pub.orcid.org/v1.2/0000-0002-1825-0097/orcid-bio").
-      #       with(:headers => { 'Accept'=>'application/json' }).
-      #       to_return(:status => 200, :body => "", :headers => {})
       #     expect(subject.extra[:raw_info]).to eq('sub' => '12345')
       #   end
       # end

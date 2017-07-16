@@ -6,7 +6,7 @@ module OmniAuth
   module Strategies
     class ORCID < OmniAuth::Strategies::OAuth2
 
-      API_VERSION = '1.2'
+      API_VERSION = '2.0'
 
       option :name, "orcid"
 
@@ -20,7 +20,6 @@ module OmniAuth
                                   :given_names,
                                   :family_names,
                                   :email,
-                                  :orcid,
                                   :scope]
 
       args [:client_id, :client_secret]
@@ -37,7 +36,7 @@ module OmniAuth
       # available options at https://members.orcid.org/api/get-oauthauthorize
       def authorize_params
         super.tap do |params|
-          %w[scope redirect_uri show_login lang given_names family_names email orcid].each do |v|
+          %w[scope redirect_uri show_login lang given_names family_names email].each do |v|
             if request.params[v]
               params[v.to_sym] = request.params[v]
             end
@@ -76,9 +75,9 @@ module OmniAuth
 
       def api_base_url
         if options[:sandbox]
-          "http://pub.sandbox.orcid.org/v#{API_VERSION}"
+          "https://pub.sandbox.orcid.org/v#{API_VERSION}"
         else
-          "http://pub.orcid.org/v#{API_VERSION}"
+          "https://pub.orcid.org/v#{API_VERSION}"
         end
       end
 
@@ -109,11 +108,12 @@ module OmniAuth
       uid { access_token.params["orcid"] }
 
       info do
-        { name: raw_info[:name],
+        { name: access_token.params["name"],
           email: raw_info[:email],
           first_name: raw_info[:first_name],
           last_name: raw_info[:last_name],
           description: raw_info[:description],
+          location: raw_info[:location],
           urls: raw_info[:urls]
         }
       end
@@ -123,31 +123,30 @@ module OmniAuth
       end
 
       def request_info
-        client.request(:get, "#{api_base_url}/#{uid}/orcid-bio", headers: { accept: 'application/json' }).parsed || {}
+        @request_info || client.request(:get, "#{api_base_url}/#{uid}/person", headers: { accept: 'application/json' }).parsed || {}
       end
 
       def raw_info
-        orcid_bio = request_info.fetch('orcid-profile', nil).to_h.fetch('orcid-bio', {})
+        # retrieve all verified email addresses and include visibility (LIMITED vs. PUBLIC)
+        # and whether this is the primary email address
+        # all other information will in almost all cases be PUBLIC
+        emails = request_info.dig('emails', 'email')
+          .select { |e| e.fetch('verified') }
+          .map { |e| e.delete_if { |k, v| %w(email visibility primary).exclude?(k) } }
 
-        emails = orcid_bio.fetch('contact-details', nil).to_h.fetch('email', nil)
-        email = nil
-
-        if emails.is_a? Array
-          emails.each do |e|
-            next unless e['visibility'] == "PUBLIC"
-            next unless e['verified']
-            email = e['value']
-            break
+        { first_name: request_info.dig('name', 'given-name', 'value'),
+          last_name: request_info.dig('name', 'family-name', 'value'),
+          other_names: request_info.dig('other-names', 'other-name').map { |o| o.fetch('content', nil) },
+          description: request_info.dig('biography', 'content'),
+          location: request_info.dig('addresses', 'address').map { |a| a.dig('country', 'value') },
+          email: emails.find { |e| e.fetch('primary') }.to_h.fetch('email'),
+          emails: emails,
+          urls: request_info.dig('researcher-urls', 'researcher-url').map { |r| r.dig('url', 'value') },
+          external_identifiers: request_info.dig('external-identifiers', 'external-identifier').map do |e|
+            { 'type' => e.fetch('external-id-type', nil),
+              'value' => e.fetch('external-id-value', nil),
+              'url' => e.dig('external-id-url', 'value') }
           end
-        end
-
-        { name: orcid_bio.fetch('personal-details', nil).to_h.fetch('credit-name', nil).to_h.fetch('value', nil),
-          first_name: orcid_bio.fetch('personal-details', nil).to_h.fetch('given-names', nil).to_h.fetch('value', nil),
-          last_name: orcid_bio.fetch('personal-details', nil).to_h.fetch('family-name', nil).to_h.fetch('value', nil),
-          other_names: orcid_bio.fetch('personal-details', nil).to_h.fetch('other-names', nil).to_h.fetch('other-name', [{}]).map { |other_name| other_name.fetch('value', nil) },
-          description: orcid_bio.fetch('biography', nil).to_h.fetch('value', nil),
-          urls: {},
-          email: email
         }
       end
 
