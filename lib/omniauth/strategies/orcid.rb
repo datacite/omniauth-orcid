@@ -139,7 +139,7 @@ module OmniAuth
           other_names: request_info.dig('other-names', 'other-name').map { |o| o.fetch('content') },
           description: request_info.dig('biography', 'content'),
           location: request_info.dig('addresses', 'address').map { |a| a.dig('country', 'value') }.first,
-          email: emails.find { |e| e.fetch('primary') }.to_h.fetch('email'),
+          email: emails.find { |e| e.fetch('primary') }.to_h.fetch('email', nil),
           urls: request_info.dig('researcher-urls', 'researcher-url').map do |r|
             { r.fetch("url-name", nil) => r.dig('url', 'value') }
           end,
