@@ -123,23 +123,21 @@ module OmniAuth
       end
 
       def request_info
-        @request_info || client.request(:get, "#{api_base_url}/#{uid}/person", headers: { accept: 'application/json' }).parsed || {}
+        @request_info ||= client.request(:get, "#{api_base_url}/#{uid}/person", headers: { accept: 'application/json' }).parsed || {}
       end
 
+      # retrieve all verified email addresses and include visibility (LIMITED vs. PUBLIC)
+      # and whether this is the primary email address
+      # all other information will in almost all cases be PUBLIC
       def raw_info
-        # retrieve all verified email addresses and include visibility (LIMITED vs. PUBLIC)
-        # and whether this is the primary email address
-        # all other information will in almost all cases be PUBLIC
-        emails = request_info.dig('emails', 'email')
-          .select { |e| e.fetch('verified') }
-          .map { |e| e.select { |k, | %w(email visibility primary).include? k } }
-
-        { first_name: request_info.dig('name', 'given-names', 'value'),
+        @raw_info ||= {
+          first_name: request_info.dig('name', 'given-names', 'value'),
           last_name: request_info.dig('name', 'family-name', 'value'),
           other_names: request_info.dig('other-names', 'other-name').map { |o| o.fetch('content') },
           description: request_info.dig('biography', 'content'),
           location: request_info.dig('addresses', 'address').map { |a| a.dig('country', 'value') }.first,
-          email: emails.find { |e| e.fetch('primary') }.to_h.fetch('email', nil),
+          email: request_info.dig('emails', 'email')
+            .select { |e| e.fetch('verified') }.find { |e| e.fetch('primary') }.to_h.fetch('email', nil),
           urls: request_info.dig('researcher-urls', 'researcher-url').map do |r|
             { r.fetch("url-name", nil) => r.dig('url', 'value') }
           end,
