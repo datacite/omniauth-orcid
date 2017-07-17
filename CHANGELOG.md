@@ -1,3 +1,11 @@
+## v.2.0.2 (July 16, 2017)
+
+[onmiauth-orcid 2.0.2](https://github.com/datacite/omniauth-orcid/releases/tag/v.2.0.2) was released on November, 2016 with the following changes:
+
+* support for ORCID v.2.0 API
+* tries to fetch primary email address (visibility must be set to `LIMITED`)
+* better support for additional attributes such as description and location
+
 ## v.1.2.2 (November 6, 2016)
 
 [onmiauth-orcid 1.2.2](https://github.com/datacite/omniauth-orcid/releases/tag/v.1.2.2) was released on November, 2016 with the following changes:
