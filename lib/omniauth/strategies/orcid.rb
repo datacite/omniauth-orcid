@@ -12,7 +12,7 @@ module OmniAuth
 
       option :member, false
       option :sandbox, false
-      option :provider_ignores_state, true
+      option :provider_ignores_state, false
 
       option :authorize_options, [:redirect_uri,
                                   :show_login,
