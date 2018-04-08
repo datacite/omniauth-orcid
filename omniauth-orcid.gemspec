@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   # Declary dependencies here, rather than in the Gemfile
   s.add_dependency 'omniauth-oauth2', '~> 1.3'
-  s.add_dependency 'ruby_dig','0.0.3'
+  s.add_dependency 'ruby_dig','~> 0.0.2'
   s.add_development_dependency 'bundler', '~> 1.0'
   s.add_development_dependency 'rspec', '~> 3.4'
   s.add_development_dependency 'rack-test', '~> 0.6.3'
