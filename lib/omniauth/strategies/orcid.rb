@@ -1,4 +1,5 @@
 require 'omniauth-oauth2'
+require 'ruby_dig'
 
 # OmniAuth strategy for connecting to the ORCID contributor ID service via the OAuth 2.0 protocol
 
