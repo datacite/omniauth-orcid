@@ -75,11 +75,7 @@ module OmniAuth
       end
 
       def api_base_url
-        if options[:sandbox]
-          "https://pub.sandbox.orcid.org/v#{API_VERSION}"
-        else
-          "https://pub.orcid.org/v#{API_VERSION}"
-        end
+        site + "/v#{API_VERSION}"
       end
 
       def root_url
@@ -124,7 +120,7 @@ module OmniAuth
       end
 
       def request_info
-        @request_info ||= client.request(:get, "#{api_base_url}/#{uid}/person", headers: { accept: 'application/json' }).parsed || {}
+        @request_info ||= access_token.get( "#{api_base_url}/#{uid}/person", headers: { accept: 'application/json' } ).parsed || {}
       end
 
       # retrieve all verified email addresses and include visibility (LIMITED vs. PUBLIC)
