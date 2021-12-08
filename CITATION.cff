@@ -1,0 +1,24 @@
+---
+cff-version: 1.2.0
+message: 'If you use Omniauth-Orcid: V.1.1.5 in your work, please cite it using the
+  following metadata'
+doi: https://doi.org/10.5281/zenodo.59983
+repository-code: https://zenodo.org/record/59983
+title: 'Omniauth-Orcid: V.1.1.5'
+authors:
+- name: Martin Fenner
+- name: Gudmundur A. Thorisson
+- name: Eleanor Kiefel Haggerty
+- name: Anusha Ranganathan
+abstract: 'onmiauth-orcid 1.1.5 was released on August 11, 2016 with the following
+  changes: compatibility with omniauth-oauth2 1.4.0. Thanks to pull request #7 by
+  eleanorakh.'
+version: v.1.1.5
+date-released: '2016-08-11'
+references:
+  identifiers:
+  - type: url
+    value: https://github.com/datacite/omniauth-orcid/tree/v.1.1.5
+  - type: doi
+    value: 10.5281/zenodo.593722
+    
